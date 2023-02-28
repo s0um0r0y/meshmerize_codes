@@ -248,6 +248,67 @@ void maze(){
     else return 'B';
   }
   char select_turnR(char found_right,char found_straight,char found_left){
-
+    if (found_right) return 'R';
+    else if (found_straight) return 'S';
+    else if (found_left) return 'L';
+    else return 'B';
+  }
+  void turn(char dir){
+    int line_position;
+    switch (dir)
+    {
+    case 'L':
+      left(motor1,motor2,240);
+      qtra.readLineWhite(sensor1);
+      while (sensor1[7]>thr[7])
+      {
+        line_position=qtra.readLineWhite(sensor1);
+      }
+      left(motor1,motor2,120);
+      qtra.readLineWhite(sensor1);
+      while (sensor1[7]<thr[7])
+      {
+        line_position=qtra.readLineWhite(sensor1);
+      }
+      follow_segment1();
+      brake(motor1,motor2);
+      break;
+    case 'R':
+      right(motor1,motor2,240);
+      qtra.readLineWhite(sensor1);
+      while (sensor1[0]>thr[0])
+      {
+        line_position=qtra.readLineWhite(sensor1);
+      }
+      right(motor1,motor2,120);
+      qtra.readLineWhite(sensor1);
+      while (sensor1[0]<thr[0])
+      {
+        line_position=qtra.readLineWhite(sensor1);
+      }
+      follow_segment1();
+      brake(motor1,motor2);
+      break;
+    case 'B':
+      right(motor1,motor2.240);
+      qtra.readLineWhite(sensor1);
+      while (sensor1[0]>thr[0])
+      {
+        line_position=qtra.readLineWhite(sensor1);
+      }
+      right(motor1,motor2,120);
+      qtra.readLineWhite(sensor1);
+      while (sensor1[0]<thr[0])
+      {
+        line_position=qtra.readLineWhite(sensor1);
+      }
+      follow_segment3();
+      brake(motor1,motor2);
+      delay(50);
+      follow_segment2();
+      forward(motor1,motor2,40);
+      delay(40);
+      break;
+    }
   }
 }
